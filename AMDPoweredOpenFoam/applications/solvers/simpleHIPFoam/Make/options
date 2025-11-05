@@ -1,3 +1,5 @@
+# File: AMDPoweredOpenFoam/applications/solvers/simpleHIPFoam/Make/options
+
 EXE_INC = \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \
@@ -15,8 +17,7 @@ EXE_INC = \
     -I/opt/rocm-7.1.0/include \
     -I/opt/rocm-7.1.0/include/hip \
     -I/opt/rocm-7.1.0/include/rocsparse \
-    -I/opt/rocm-7.1.0/include/rocblas \
-    -Ihipsolver
+    -I/opt/rocm-7.1.0/include/rocblas
 
 EXE_LIBS = \
     -lfiniteVolume \
@@ -33,6 +34,4 @@ EXE_LIBS = \
     -lamdhip64 \
     -lrocsparse \
     -lrocblas
-
-# Use hipcc as the compiler (will be set by wmake)
 c++FLAGS = -std=c++14 -O3 -fPIC -D__HIP_PLATFORM_AMD__

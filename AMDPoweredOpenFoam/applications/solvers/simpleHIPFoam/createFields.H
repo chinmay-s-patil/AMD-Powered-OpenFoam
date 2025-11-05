@@ -1,4 +1,4 @@
-// createFields.H
+// File: AMDPoweredOpenFoam/applications/solvers/simpleHIPFoam/createFields.H
 // Field initialization for simpleHIPFoam
 
 Info<< "Reading field p\n" << endl;

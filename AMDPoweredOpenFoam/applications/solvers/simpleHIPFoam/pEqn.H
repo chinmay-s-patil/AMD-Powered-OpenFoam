@@ -1,4 +1,4 @@
-// pEqn.H
+// File: AMDPoweredOpenFoam/applications/solvers/simpleHIPFoam/pEqn.H
 // Pressure equation with HIP acceleration option
 
 volScalarField rAU(1.0/UEqn.A());

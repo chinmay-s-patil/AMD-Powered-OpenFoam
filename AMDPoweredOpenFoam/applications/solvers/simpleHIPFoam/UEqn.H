@@ -1,4 +1,4 @@
-// UEqn.H
+// File: AMDPoweredOpenFoam/applications/solvers/simpleHIPFoam/UEqn.H
 // Momentum equation for simpleHIPFoam
 
 // Momentum predictor

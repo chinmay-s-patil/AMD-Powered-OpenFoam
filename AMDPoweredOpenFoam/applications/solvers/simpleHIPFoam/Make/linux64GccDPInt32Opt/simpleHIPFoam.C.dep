@@ -897,6 +897,7 @@ $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvOptionList.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvOption.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvOptionI.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/lnInclude/fvOptionListTemplates.C \
+hipSolver/hipSIMPLE.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/postProcess.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/addRegionOption.H \
 $(WM_PROJECT_DIR)/src/OpenFOAM/lnInclude/addFunctionObjectOptions.H \

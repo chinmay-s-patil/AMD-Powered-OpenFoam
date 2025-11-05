@@ -1,4 +1,4 @@
-// simpleHIPFoam.cpp
+// File: AMDPoweredOpenFoam/applications/solvers/simpleHIPFoam/simpleHIPFoam.C
 // Main application for HIP-accelerated SIMPLE algorithm solver
 // Compatible with OpenFOAM v2412
 
@@ -7,7 +7,7 @@
 #include "turbulentTransportModel.H"
 #include "simpleControl.H"
 #include "fvOptions.H"
-#include "hipSIMPLE.H"
+#include "hipSolver/hipSIMPLE.H"
 
 int main(int argc, char *argv[])
 {
