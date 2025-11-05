@@ -1,33 +1,7 @@
-================================================
-Building simpleHIPFoam
-================================================
-OpenFOAM: v2412
-HIP: /opt/rocm/bin/hipcc
-HIP version: 7.1.25424-4179531dcd
-ROCm: /opt/rocm
-================================================
-
-Building simpleHIPFoam solver...
-Make/options:37: error: invalid preprocessing directive #Use
-   37 | # Use hipcc as the compiler (will be set by wmake)
-      | 
 Making dependencies: simpleHIPFoam.C
-wmkdepend: could not open 'hipSIMPLE.H' for source file 'simpleHIPFoam.C': No such file or directory
-wmkdepend: parse error while scanning 'createFields.H' ... perhaps missing a final newline
-wmkdepend: parse error while scanning 'UEqn.H' ... perhaps missing a final newline
-wmkdepend: parse error while scanning 'pEqn.H' ... perhaps missing a final newline
-wmkdepend: parse error while scanning 'simpleHIPFoam.C' ... perhaps missing a final newline
 g++ -std=c++17 -std=c++14 -O3 -fPIC -D__HIP_PLATFORM_AMD__ -c simpleHIPFoam.C -o Make/linux64GccDPInt32Opt/simpleHIPFoam.o
 simpleHIPFoam.C:5:10: fatal error: fvCFD.H: No such file or directory
     5 | #include "fvCFD.H"
       |          ^~~~~~~~~
 compilation terminated.
 make: *** [/usr/lib/openfoam/openfoam2412/wmake/rules/General/transform:38: Make/linux64GccDPInt32Opt/simpleHIPFoam.o] Error 1
-
-================================================
-Build FAILED!
-================================================
-
-Check the errors above. Common issues:
-  - Missing ROCm libraries: export LD_LIBRARY_PATH=/opt/rocm/lib:$LD_LIBRARY_PATH
-  - Wrong include paths in Make/options
