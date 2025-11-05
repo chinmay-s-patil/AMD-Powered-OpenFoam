@@ -1,0 +1,4 @@
+simpleHIPFoam.C
+hipSIMPLE.C
+
+EXE = $(FOAM_USER_APPBIN)/simpleHIPFoam
