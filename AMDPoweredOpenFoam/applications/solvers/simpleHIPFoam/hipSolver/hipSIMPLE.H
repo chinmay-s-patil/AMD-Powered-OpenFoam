@@ -8,6 +8,7 @@
 #include <hip/hip_runtime.h>
 #include <rocsparse/rocsparse.h>
 #include <vector>
+rocblas_handle blas_handle_;
 
 class hipSIMPLE
 {

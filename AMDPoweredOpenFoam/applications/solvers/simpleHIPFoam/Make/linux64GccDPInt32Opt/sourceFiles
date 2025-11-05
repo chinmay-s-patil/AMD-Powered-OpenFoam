@@ -1,0 +1,5 @@
+SOURCE = \
+simpleHIPFoam.C \
+hipSIMPLE.C \
+
+# sources

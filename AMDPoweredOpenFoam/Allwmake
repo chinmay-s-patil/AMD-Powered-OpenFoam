@@ -1,0 +1,78 @@
+#!/bin/sh
+cd "${0%/*}" || exit
+
+# Set ROCm paths explicitly
+export ROCM_PATH=${ROCM_PATH:-/opt/rocm}
+export PATH=$ROCM_PATH/bin:$PATH
+export LD_LIBRARY_PATH=$ROCM_PATH/lib:$LD_LIBRARY_PATH
+
+# Check OpenFOAM environment
+if [ -z "$WM_PROJECT_DIR" ]; then
+    echo "ERROR: OpenFOAM environment not loaded!"
+    echo "Run: source /opt/openfoam2412/etc/bashrc"
+    exit 1
+fi
+
+# Check ROCm/HIP - try multiple locations
+HIPCC_PATH=""
+if [ -f "/opt/rocm/bin/hipcc" ]; then
+    HIPCC_PATH="/opt/rocm/bin/hipcc"
+elif [ -f "/opt/rocm-7.1.0/bin/hipcc" ]; then
+    HIPCC_PATH="/opt/rocm-7.1.0/bin/hipcc"
+    export ROCM_PATH=/opt/rocm-7.1.0
+elif command -v hipcc >/dev/null 2>&1; then
+    HIPCC_PATH=$(which hipcc)
+fi
+
+if [ -z "$HIPCC_PATH" ]; then
+    echo "ERROR: hipcc not found!"
+    echo "Checked:"
+    echo "  - /opt/rocm/bin/hipcc"
+    echo "  - /opt/rocm-7.1.0/bin/hipcc"
+    echo "  - PATH: $PATH"
+    exit 1
+fi
+
+echo "================================================"
+echo "Building simpleHIPFoam"
+echo "================================================"
+echo "OpenFOAM: $WM_PROJECT_VERSION"
+echo "HIP: $HIPCC_PATH"
+$HIPCC_PATH --version | head -n 1
+echo "ROCm: $ROCM_PATH"
+echo "================================================"
+
+# Build solver
+echo ""
+echo "Building simpleHIPFoam solver..."
+cd applications/solvers/simpleHIPFoam || exit 1
+
+# Force wmake to use hipcc
+export WM_COMPILER=Gcc
+export WM_COMPILE_OPTION=Opt
+export WM_CC="$HIPCC_PATH"
+export WM_CXX="$HIPCC_PATH"
+export WM_LINK_LANGUAGE=HIP
+
+wmake
+
+if [ $? -eq 0 ]; then
+    echo ""
+    echo "================================================"
+    echo "Build SUCCESS!"
+    echo "Executable: $FOAM_USER_APPBIN/simpleHIPFoam"
+    echo "================================================"
+    echo ""
+    echo "Test it:"
+    echo "  simpleHIPFoam -help"
+else
+    echo ""
+    echo "================================================"
+    echo "Build FAILED!"
+    echo "================================================"
+    echo ""
+    echo "Check the errors above. Common issues:"
+    echo "  - Missing ROCm libraries: export LD_LIBRARY_PATH=$ROCM_PATH/lib:\$LD_LIBRARY_PATH"
+    echo "  - Wrong include paths in Make/options"
+    exit 1
+fi
