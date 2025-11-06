@@ -9,6 +9,11 @@
 #include "fvOptions.H"
 #include "hipSolver/hipSIMPLE.H"
 
+// Additional includes for v2412
+#include "ISstream.H"
+#include "FieldField.H"
+#include "PtrDynList.H"
+
 int main(int argc, char *argv[])
 {
     argList::addNote

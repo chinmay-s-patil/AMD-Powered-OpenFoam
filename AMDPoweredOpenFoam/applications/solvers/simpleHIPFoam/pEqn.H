@@ -32,9 +32,31 @@ while (simple.correctNonOrthogonal())
     {
         Info<< "Using HIP-accelerated solver for pressure" << endl;
         
+        // In v2412, access the underlying lduMatrix differently
+        // Get the lduMatrix from the fvMatrix
+        const lduMatrix& mat = pEqn;
+        
+        // Create a temporary volScalarField for the source
+        volScalarField source
+        (
+            IOobject
+            (
+                "pEqn_source",
+                mesh.time().timeName(),
+                mesh,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE
+            ),
+            mesh,
+            dimensionedScalar("zero", dimless, 0.0)
+        );
+        
+        // Copy source values
+        source.primitiveFieldRef() = pEqn.source();
+        
         // Convert matrix to CSR and solve on GPU
-        hipSolver.convertToCSR(pEqn.matrix());
-        hipSolver.solveHIP(p, pEqn.source(), simple.dict().subDict("hipSolver"));
+        hipSolver.convertToCSR(mat);
+        hipSolver.solveHIP(p, source, simple.dict().subDict("hipSolver"));
     }
     else
     {

@@ -1,20 +1,19 @@
 EXE_INC = \
-    -I/home/indigo/OpenFOAM/OpenFOAM-v2412/src/finiteVolume/lnInclude \
-    -I/home/indigo/OpenFOAM/OpenFOAM-v2412/src/meshTools/lnInclude \
-    -I/home/indigo/OpenFOAM/OpenFOAM-v2412/src/sampling/lnInclude \
-    -I/home/indigo/OpenFOAM/OpenFOAM-v2412/src/TurbulenceModels/turbulenceModels/lnInclude \
-    -I/home/indigo/OpenFOAM/OpenFOAM-v2412/src/TurbulenceModels/incompressible/lnInclude \
-    -I/home/indigo/OpenFOAM/OpenFOAM-v2412/src/transportModels \
-    -I/home/indigo/OpenFOAM/OpenFOAM-v2412/src/transportModels/incompressible/singlePhaseTransportModel \
-    -I/home/indigo/OpenFOAM/OpenFOAM-v2412/src/dynamicMesh/lnInclude \
-    -I/home/indigo/OpenFOAM/OpenFOAM-v2412/src/dynamicFvMesh/lnInclude \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/sampling/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/incompressible/lnInclude \
+    -I$(LIB_SRC)/transportModels \
+    -I$(LIB_SRC)/transportModels/incompressible/singlePhaseTransportModel \
+    -I$(LIB_SRC)/dynamicMesh/lnInclude \
+    -I$(LIB_SRC)/dynamicFvMesh/lnInclude \
     -I/opt/rocm/include \
     -I/opt/rocm/include/hip \
     -I/opt/rocm/include/rocsparse \
     -I/opt/rocm/include/rocblas
 
 EXE_LIBS = \
-    -L/home/indigo/OpenFOAM/OpenFOAM-v2412/platforms/linux64GccDPInt32Opt/lib \
     -lfiniteVolume \
     -lfvOptions \
     -lmeshTools \
