@@ -4,4 +4,4 @@ simpleHIPFoam.C:5:10: fatal error: fvCFD.H: No such file or directory
     5 | #include "fvCFD.H"
       |          ^~~~~~~~~
 compilation terminated.
-make: *** [/usr/lib/openfoam/openfoam2412/wmake/rules/General/transform:38: Make/linux64GccDPInt32Opt/simpleHIPFoam.o] Error 1
+make: *** [/home/indigo/OpenFOAM/OpenFOAM-v2412/wmake/rules/General/transform:38: Make/linux64GccDPInt32Opt/simpleHIPFoam.o] Error 1
