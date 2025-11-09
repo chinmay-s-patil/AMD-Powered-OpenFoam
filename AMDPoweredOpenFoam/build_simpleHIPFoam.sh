@@ -218,43 +218,56 @@ fi
 
 echo -e "${GREEN}✓ Source files found${NC}"
 
-# Create/update Make/options with correct paths
-echo "  Updating Make/options..."
-cat > applications/solvers/simpleHIPFoam/Make/options << 'EOF'
-EXE_INC = \
-    -I$(LIB_SRC)/finiteVolume/lnInclude \
-    -I$(LIB_SRC)/meshTools/lnInclude \
-    -I$(LIB_SRC)/sampling/lnInclude \
-    -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
-    -I$(LIB_SRC)/TurbulenceModels/incompressible/lnInclude \
-    -I$(LIB_SRC)/transportModels \
-    -I$(LIB_SRC)/transportModels/incompressible/singlePhaseTransportModel \
-    -I$(LIB_SRC)/dynamicMesh/lnInclude \
-    -I$(LIB_SRC)/dynamicFvMesh/lnInclude \
-    -I/opt/rocm/include \
-    -I/opt/rocm/include/hip \
-    -I/opt/rocm/include/rocsparse \
+# Create/update Make/options with ABSOLUTE paths (safer for wmake)
+echo "  Creating Make/options with absolute paths..."
+cat > applications/solvers/simpleHIPFoam/Make/options << EOF
+EXE_INC = \\
+    -I$FOAM_SRC/finiteVolume/lnInclude \\
+    -I$FOAM_SRC/meshTools/lnInclude \\
+    -I$FOAM_SRC/sampling/lnInclude \\
+    -I$FOAM_SRC/TurbulenceModels/turbulenceModels/lnInclude \\
+    -I$FOAM_SRC/TurbulenceModels/incompressible/lnInclude \\
+    -I$FOAM_SRC/transportModels \\
+    -I$FOAM_SRC/transportModels/incompressible/singlePhaseTransportModel \\
+    -I$FOAM_SRC/dynamicMesh/lnInclude \\
+    -I$FOAM_SRC/dynamicFvMesh/lnInclude \\
+    -I/opt/rocm/include \\
+    -I/opt/rocm/include/hip \\
+    -I/opt/rocm/include/rocsparse \\
     -I/opt/rocm/include/rocblas
 
-EXE_LIBS = \
-    -lfiniteVolume \
-    -lfvOptions \
-    -lmeshTools \
-    -lsampling \
-    -lturbulenceModels \
-    -lincompressibleTurbulenceModels \
-    -lincompressibleTransportModels \
-    -ldynamicMesh \
-    -ldynamicFvMesh \
-    -L/opt/rocm/lib \
-    -lamdhip64 \
-    -lrocsparse \
+EXE_LIBS = \\
+    -lfiniteVolume \\
+    -lfvOptions \\
+    -lmeshTools \\
+    -lsampling \\
+    -lturbulenceModels \\
+    -lincompressibleTurbulenceModels \\
+    -lincompressibleTransportModels \\
+    -ldynamicMesh \\
+    -ldynamicFvMesh \\
+    -L/opt/rocm/lib \\
+    -lamdhip64 \\
+    -lrocsparse \\
     -lrocblas
 
 c++FLAGS = -std=c++14 -O3 -fPIC -D__HIP_PLATFORM_AMD__
 EOF
 
-echo -e "${GREEN}✓ Make/options updated${NC}"
+echo -e "${GREEN}✓ Make/options created with absolute paths${NC}"
+echo "  First include path: -I$FOAM_SRC/finiteVolume/lnInclude"
+
+# Fix missing newlines in source files
+echo "  Fixing missing newlines in source files..."
+for file in simpleHIPFoam.C *.H hipSolver/*.C hipSolver/*.H; do
+    if [ -f "$file" ]; then
+        # Add newline if file doesn't end with one
+        if [ -n "$(tail -c1 "$file" 2>/dev/null)" ]; then
+            echo "" >> "$file"
+        fi
+    fi
+done
+echo -e "${GREEN}✓ Newlines fixed${NC}"
 
 # ============================================
 # STEP 6: Build
@@ -274,16 +287,13 @@ echo "Building with wmake..."
 echo ""
 
 # Build and capture output
-if wmake 2>&1 | tee ../../../build.log; then
-    BUILD_SUCCESS=true
-else
-    BUILD_SUCCESS=false
-fi
+wmake 2>&1 | tee ../../../build.log
+BUILD_SUCCESS=${PIPESTATUS[0]}
 
 cd ../../..
 
 echo ""
-if [ "$BUILD_SUCCESS" = true ]; then
+if [ $BUILD_SUCCESS -eq 0 ]; then
     echo -e "${GREEN}=========================================="
     echo "  ✓✓✓ BUILD SUCCESSFUL! ✓✓✓"
     echo -e "==========================================${NC}"
