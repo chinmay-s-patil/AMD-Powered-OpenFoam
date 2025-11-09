@@ -38,12 +38,9 @@
 
 # 8 "<command-line>" 2
 # 1 "Make/options"
-EXE_INC = -I/usr/lib/openfoam/openfoam2406/src/finiteVolume/lnInclude -I/usr/lib/openfoam/openfoam2406/src/OpenFOAM/lnInclude -I/usr/lib/openfoam/openfoam2406/src/OSspecific/POSIX/lnInclude -I/usr/lib/openfoam/openfoam2406/src/meshTools/lnInclude -I/usr/lib/openfoam/openfoam2406/src/sampling/lnInclude -I/usr/lib/openfoam/openfoam2406/src/TurbulenceModels/turbulenceModels/lnInclude -I/usr/lib/openfoam/openfoam2406/src/TurbulenceModels/incompressible/lnInclude -I/usr/lib/openfoam/openfoam2406/src/transportModels -I/usr/lib/openfoam/openfoam2406/src/transportModels/incompressible/singlePhaseTransportModel -I/usr/lib/openfoam/openfoam2406/src/dynamicMesh/lnInclude -I/usr/lib/openfoam/openfoam2406/src/dynamicFvMesh/lnInclude -I/opt/rocm/include -I/opt/rocm/include/hip -I/opt/rocm/include/rocsparse -I/opt/rocm/include/rocblas
-# 17 "Make/options"
+EXE_INC = -I$(LIB_SRC)/finiteVolume/lnInclude -I$(LIB_SRC)/meshTools/lnInclude -I$(LIB_SRC)/sampling/lnInclude -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude -I$(LIB_SRC)/TurbulenceModels/incompressible/lnInclude -I$(LIB_SRC)/transportModels -I$(LIB_SRC)/transportModels/incompressible/singlePhaseTransportModel -I$(LIB_SRC)/dynamicMesh/lnInclude -I$(LIB_SRC)/dynamicFvMesh/lnInclude -I/opt/rocm/include -I/opt/rocm/include/hip -I/opt/rocm/include/rocsparse -I/opt/rocm/include/rocblas
+# 15 "Make/options"
 
 EXE_LIBS = -lfiniteVolume -lfvOptions -lmeshTools -lsampling -lturbulenceModels -lincompressibleTurbulenceModels -lincompressibleTransportModels -ldynamicMesh -ldynamicFvMesh -L/opt/rocm/lib -lamdhip64 -lrocsparse -lrocblas
-# 32 "Make/options"
-
-c++FLAGS = -std=c++14 -O3 -fPIC -D__HIP_PLATFORM_AMD__
 
 # options

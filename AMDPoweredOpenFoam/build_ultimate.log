@@ -1,0 +1,69 @@
+Making dependencies: hipSIMPLE.C
+Making dependencies: simpleHIPFoam.C
+g++ -std=c++14 -m64 -pthread -DOPENFOAM=2406 -DWM_DP -DWM_LABEL_SIZE=32 -Wall -Wextra -Wold-style-cast -Wnon-virtual-dtor -Wno-unused-parameter -Wno-invalid-offsetof -Wno-attributes -Wno-unknown-pragmas -O3  -DNoRepository -ftemplate-depth-100  -I/usr/lib/openfoam/openfoam2406/src/finiteVolume/lnInclude -I/usr/lib/openfoam/openfoam2406/src/meshTools/lnInclude -I/usr/lib/openfoam/openfoam2406/src/sampling/lnInclude -I/usr/lib/openfoam/openfoam2406/src/TurbulenceModels/turbulenceModels/lnInclude -I/usr/lib/openfoam/openfoam2406/src/TurbulenceModels/incompressible/lnInclude -I/usr/lib/openfoam/openfoam2406/src/transportModels -I/usr/lib/openfoam/openfoam2406/src/transportModels/incompressible/singlePhaseTransportModel -I/usr/lib/openfoam/openfoam2406/src/dynamicMesh/lnInclude -I/usr/lib/openfoam/openfoam2406/src/dynamicFvMesh/lnInclude -I/opt/rocm/include -I/opt/rocm/include/hip -I/opt/rocm/include/rocsparse -I/opt/rocm/include/rocblas -iquote. -IlnInclude -I/usr/lib/openfoam/openfoam2406/src/OpenFOAM/lnInclude -I/usr/lib/openfoam/openfoam2406/src/OSspecific/POSIX/lnInclude   -fPIC -c simpleHIPFoam.C -o Make/linux64GccDPInt32Opt/simpleHIPFoam.o
+In file included from hipSolver/hipSIMPLE.H:8,
+                 from simpleHIPFoam.C:10:
+/opt/rocm/include/hip/hip_runtime.h:61:2: error: #error ("Must define exactly one of __HIP_PLATFORM_AMD__ or __HIP_PLATFORM_NVIDIA__");
+   61 | #error ("Must define exactly one of __HIP_PLATFORM_AMD__ or __HIP_PLATFORM_NVIDIA__");
+      |  ^~~~~
+In file included from /opt/rocm/include/hip/hip_runtime_api.h:47,
+                 from /opt/rocm/include/hip/hip_runtime.h:65,
+                 from hipSolver/hipSIMPLE.H:8,
+                 from simpleHIPFoam.C:10:
+/opt/rocm/include/hip/linker_types.h:135:2: error: #error ("Must define exactly one of __HIP_PLATFORM_AMD__ or __HIP_PLATFORM_NVIDIA__");
+  135 | #error ("Must define exactly one of __HIP_PLATFORM_AMD__ or __HIP_PLATFORM_NVIDIA__");
+      |  ^~~~~
+In file included from /opt/rocm/include/hip/hip_runtime.h:65,
+                 from hipSolver/hipSIMPLE.H:8,
+                 from simpleHIPFoam.C:10:
+/opt/rocm/include/hip/hip_runtime_api.h:10169:2: error: #error ("Must define exactly one of __HIP_PLATFORM_AMD__ or __HIP_PLATFORM_NVIDIA__");
+10169 | #error ("Must define exactly one of __HIP_PLATFORM_AMD__ or __HIP_PLATFORM_NVIDIA__");
+      |  ^~~~~
+In file included from /opt/rocm/include/hip/hip_runtime.h:66,
+                 from hipSolver/hipSIMPLE.H:8,
+                 from simpleHIPFoam.C:10:
+/opt/rocm/include/hip/library_types.h:81:2: error: #error ("Must define exactly one of __HIP_PLATFORM_AMD__ or __HIP_PLATFORM_NVIDIA__");
+   81 | #error ("Must define exactly one of __HIP_PLATFORM_AMD__ or __HIP_PLATFORM_NVIDIA__");
+      |  ^~~~~
+In file included from /opt/rocm/include/hip/hip_runtime.h:68,
+                 from hipSolver/hipSIMPLE.H:8,
+                 from simpleHIPFoam.C:10:
+/opt/rocm/include/hip/hip_vector_types.h:38:2: error: #error ("Must define exactly one of __HIP_PLATFORM_AMD__ or __HIP_PLATFORM_NVIDIA__");
+   38 | #error ("Must define exactly one of __HIP_PLATFORM_AMD__ or __HIP_PLATFORM_NVIDIA__");
+      |  ^~~~~
+In file included from /opt/rocm/include/hip/hip_runtime.h:65,
+                 from hipSolver/hipSIMPLE.H:8,
+                 from simpleHIPFoam.C:10:
+/opt/rocm/include/hip/hip_runtime_api.h: In function ‘hipError_t hipMalloc(T**, size_t)’:
+/opt/rocm/include/hip/hip_runtime_api.h:10186:28: warning: use of old-style cast to ‘void**’ [-Wold-style-cast]
+10186 |   return hipMalloc((void**)devPtr, size);
+      |                            ^~~~~~
+/opt/rocm/include/hip/hip_runtime_api.h: In function ‘hipError_t hipMallocPitch(T**, size_t*, size_t, size_t)’:
+/opt/rocm/include/hip/hip_runtime_api.h:10201:33: warning: use of old-style cast to ‘void**’ [-Wold-style-cast]
+10201 |   return hipMallocPitch((void**)devPtr, pitch, width, height);
+      |                                 ^~~~~~
+/opt/rocm/include/hip/hip_runtime_api.h: At global scope:
+/opt/rocm/include/hip/hip_runtime_api.h:10217:61: error: ‘hipHostMallocDefault’ was not declared in this scope
+10217 |                                        unsigned int flags = hipHostMallocDefault) {
+      |                                                             ^~~~~~~~~~~~~~~~~~~~
+/opt/rocm/include/hip/hip_runtime_api.h: In function ‘hipError_t hipHostMalloc(T**, size_t, unsigned int)’:
+/opt/rocm/include/hip/hip_runtime_api.h:10218:32: warning: use of old-style cast to ‘void**’ [-Wold-style-cast]
+10218 |   return hipHostMalloc((void**)ptr, size, flags);
+      |                                ^~~
+/opt/rocm/include/hip/hip_runtime_api.h: At global scope:
+/opt/rocm/include/hip/hip_runtime_api.h:10233:79: error: ‘hipHostAllocDefault’ was not declared in this scope
+10233 |                                                          unsigned int flags = hipHostAllocDefault) {
+      |                                                                               ^~~~~~~~~~~~~~~~~~~
+/opt/rocm/include/hip/hip_runtime_api.h: In function ‘hipError_t hipHostAlloc(T**, size_t, unsigned int)’:
+/opt/rocm/include/hip/hip_runtime_api.h:10234:31: warning: use of old-style cast to ‘void**’ [-Wold-style-cast]
+10234 |   return hipHostAlloc((void**)ptr, size, flags);
+      |                               ^~~
+/opt/rocm/include/hip/hip_runtime_api.h: At global scope:
+/opt/rocm/include/hip/hip_runtime_api.h:10252:64: error: ‘hipMemAttachGlobal’ was not declared in this scope
+10252 |                                           unsigned int flags = hipMemAttachGlobal) {
+      |                                                                ^~~~~~~~~~~~~~~~~~
+/opt/rocm/include/hip/hip_runtime_api.h: In function ‘hipError_t hipMallocManaged(T**, size_t, unsigned int)’:
+/opt/rocm/include/hip/hip_runtime_api.h:10253:35: warning: use of old-style cast to ‘void**’ [-Wold-style-cast]
+10253 |   return hipMallocManaged((void**)devPtr, size, flags);
+      |                                   ^~~~~~
+make: *** [/usr/lib/openfoam/openfoam2406/wmake/rules/General/transform:38: Make/linux64GccDPInt32Opt/simpleHIPFoam.o] Error 1
